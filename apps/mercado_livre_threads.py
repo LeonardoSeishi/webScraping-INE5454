@@ -12,19 +12,12 @@ BRANDS = [
     "Kawazaki", "Suzuki", "Triumph", "Ducati"
 ]
 
+# Atualizar cookies se nececessario
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "none",
-    "Sec-Fetch-User": "?1",
-    "Cache-Control": "max-age=0",
-}
+    "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0",
+    "Cookie": "_d2id=e665dd4a-e6b7-4520-84b2-83ba9e2077f3; ssid=ghy-061715-z4YaDm8rMpGrE7DGuKmPHcU6fLx9oC-__-187374176-__-1844881816290--RRR_0-RRR_0; orguseridp=187374176; orgnickp=LEONARDOSEISHIYAMAZAKI; ftid=H3S5056fDnAZD138UaP9GdHm4nQUo7GE-1750187360700; orguserid=h070h7HhT0ht; cookiesPreferencesNotLogged=%7B%22categories%22%3A%7B%22advertising%22%3Atrue%2C%22functionality%22%3Atrue%2C%22performance%22%3Atrue%2C%22traceability%22%3Atrue%7D%7D; cookiesPreferencesLoggedFallback=%7B%22userId%22%3A187374176%2C%22categories%22%3A%7B%22advertising%22%3Atrue%2C%22functionality%22%3Atrue%2C%22performance%22%3Atrue%2C%22traceability%22%3Atrue%7D%7D; cp=88036400; c_ui-navigation=6.6.144; LAST_SEARCH=yamaha%20r15; nsa_rotok=eyJhbGciOiJSUzI1NiIsImtpZCI6IjIiLCJ0eXAiOiJKV1QifQ.eyJpZGVudGlmaWVyIjoiNmE2M2FmNDktYTVjOS00NGNlLThiNjctNTdmZTBlZjNkZDQ0Iiwicm90YXRpb25faWQiOiJlYWNiMTdiOS0yMjAwLTRkY2EtYThjZC0wNzgwNTY3MGViZmIiLCJwbGF0Zm9ybSI6Ik1MIiwicm90YXRpb25fZGF0ZSI6MTc1NjI1NDg2NSwiZXhwIjoxNzU4ODQ2MjY1LCJqdGkiOiIzZTM3NjdmMi00YWIxLTQyZmMtOGE0MC1kYTc5YjYxZTE4M2YiLCJpYXQiOjE3NTYyNTQyNjUsInN1YiI6IjZhNjNhZjQ5LWE1YzktNDRjZS04YjY3LTU3ZmUwZWYzZGQ0NCJ9.fS5ryKdOQPrTurciGURPciJoiiR_nbEJ8PXXOGDWGok-e2tDBFueNp5DIdwQrvbdEtBjdchzCS16nJRx54ENGLT5ShTp3BYH6PyNBh12wk3YKRTlkSWwd8jwbkGawhYDaLFq2rvO9QuMi2U8G3qCfzUOs2yrgNiBdjA_I_VXul6LO7hmfHE8cqC3dBcsmsgyt4wN9qVzp0SwbRtguE5M2Dvd2wHaSUgSbpBETKYFOeUSaAbZksrjhOpmOqpqroNtRPs3Yfh7g04AT4iiv25eb2a0LU-my4hapIEy2Zs9RwYdFCORUIypCiMvw6LfSEqfT4OfDTuh5PU1Ts5cFw5OZw; _csrf=bIPwI2aL8OB-pLrC9hkOEwCT; main_domain=; main_attributes=; categories=; last_query=moto; category=MLB1763; backend_dejavu_info=j%3A%7B%7D; _mldataSessionId=2c3db086-16f6-4c76-9b72-507ab0bcdf08; hide-cookie-banner=187374176-COOKIE_PREFERENCES_ALREADY_SET; cookiesPreferencesLogged=%7B%22userId%22%3A187374176%2C%22categories%22%3A%7B%22advertising%22%3Atrue%2C%22functionality%22%3Atrue%2C%22performance%22%3Atrue%2C%22traceability%22%3Atrue%7D%7D; aws-waf-token=676c28e0-a488-4c45-8e0b-dfc5bc4d0c70:EAoAc68B41rmAQAA:GPIy4EKmjXUbDyaQ/jZ/dAxEq0zblrxTGtU7WMAAQgQUe7vk2oZNnTFVNb98PYt5WVw+0nfGF9EptqXtOOBONs71oAsXJ33pnojmFzgXn5aWdSl6a6pgN04HJSga14+rIG5xNWKX6VUWuEMzNJ4dXF5iqzs5XZs+kc/R2HQ6m7glulGPjRvCBZow5IHMjdo6cqotMu9DDNrrCBaI5Ra6uAgcp1k2PZ4=",
+    }
+
 
 # Lock para evitar problemas de concorrência
 urls_lock = Lock()
@@ -44,7 +37,7 @@ def main():
     urls = get_product_urls_threaded(brands_urls)
     print(f"\n{len(urls)} produtos encontrados\n")
 
-    motorcycles = get_motorcycles_data_threaded(urls[:16])
+    motorcycles = get_motorcycles_data_threaded(urls)
     
     print(f"\n{len(motorcycles)} motos processadas\n" if motorcycles else "Nenhuma moto encontrada\n")
     
@@ -52,8 +45,11 @@ def main():
         for key, value in moto.items():
             print(f"{key}: {value}")
         print()'''
+    
+    save_data(motorcycles, '../result/mercado_livre.json')
 
-def get_product_urls_threaded(brands_urls, max_workers=1):
+
+def get_product_urls_threaded(brands_urls, max_workers=4):
     """Coleta URLs de produtos de TODAS as páginas usando ThreadPoolExecutor"""
     unique_product_urls = []
 
@@ -125,7 +121,7 @@ def get_product_urls_threaded(brands_urls, max_workers=1):
 
     return list(set(unique_product_urls))  # Remover duplicatas
 
-def get_motorcycles_data_threaded(urls, max_workers=8):
+def get_motorcycles_data_threaded(urls, max_workers=2):
     """Coleta dados das motos usando ThreadPoolExecutor"""
     motorcycles = []
 
@@ -232,6 +228,16 @@ def limpar_numero(numero_str):
         texto_limpo = numero_str.replace('.', '').replace(' ', '').replace('km', '').replace('cc', '')
         return int(texto_limpo) if texto_limpo.isdigit() else 0
     return 0
+
+def save_data(dados, nome_arquivo='../result/mercado_livre.json'):
+    try:
+        with open(nome_arquivo, 'w', encoding='utf-8') as f:
+            json.dump(dados, f, ensure_ascii=False, indent=4)
+        print(f"Dados salvos com sucesso em {nome_arquivo}")
+        return True
+    except Exception as e:
+        print(f"Erro ao salvar JSON: {e}")
+        return False
 
 if __name__ == "__main__":
     start_time = time.time()

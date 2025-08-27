@@ -70,7 +70,7 @@ def processar_arquivo_json(nome_arquivo):
 
 # Função principal para executar o processamento
 def main():
-    nome_arquivo = "result/mercado_livre_teste1.json"
+    nome_arquivo = "result/mercado_livre.json"
     resultado = processar_arquivo_json(nome_arquivo)
     
     # Opcional: Salvar os dados filtrados em um novo arquivo
